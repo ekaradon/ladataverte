@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { Table } from 'evergreen-ui'
 import { Link } from 'react-router-dom'
 
-import { ArtWorkEntity } from './ArtWork.entity'
+import { artWorkEntity } from './ArtWork.entity'
 import sample from './sample.json'
 
 const RowLink = styled(Link)({
@@ -20,7 +20,7 @@ function ArtTable() {
         <Table.TextHeaderCell flex={3}>tags</Table.TextHeaderCell>
       </Table.Head>
       <Table.Body maxHeight='50%'>
-        {data.map(ArtWorkEntity).map((artWork) => (
+        {data.map(artWorkEntity).map((artWork) => (
           <RowLink key={artWork.id} to={`/artwork/${artWork.id}`}>
             <Table.Row isSelectable>
               <Table.TextCell flex={5}>{artWork.title}</Table.TextCell>
