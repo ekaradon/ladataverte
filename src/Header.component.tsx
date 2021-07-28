@@ -1,15 +1,18 @@
-import { Button, Pane, Heading, SearchInput } from 'evergreen-ui'
+import { Pane, Heading } from 'evergreen-ui'
+import { ReactNode } from 'react'
 
-function Header() {
+type HeaderProps = {
+  title: string
+  children: ReactNode
+}
+
+function Header({ title, children }: HeaderProps) {
   return (
-    <Pane display='flex' padding={16} borderRadius={3}>
+    <Pane display='flex' padding={16} borderRadius={3} background='tint1'>
       <Pane flex={1}>
-        <Heading size={600}>Art Institute of Chicago</Heading>
+        <Heading size={600}>{title}</Heading>
       </Pane>
-      <Pane>
-        <SearchInput marginRight='16px' placeholder='search...' />
-        <Button>Réinitialiser</Button>
-      </Pane>
+      <Pane>{children}</Pane>
     </Pane>
   )
 }

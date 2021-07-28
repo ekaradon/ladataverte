@@ -1,6 +1,13 @@
+import styled from '@emotion/styled'
 import { Table } from 'evergreen-ui'
+import { Link } from 'react-router-dom'
+
 import { ArtWorkEntity } from './ArtWork.entity'
 import sample from './sample.json'
+
+const RowLink = styled(Link)({
+  textDecoration: 'none'
+})
 
 const { data } = sample
 
@@ -14,15 +21,17 @@ function ArtTable() {
       </Table.Head>
       <Table.Body maxHeight='50%'>
         {data.map(ArtWorkEntity).map((artWork) => (
-          <Table.Row key={artWork.id} isSelectable>
-            <Table.TextCell flex={5}>{artWork.title}</Table.TextCell>
-            <Table.TextCell flex={1} isNumber>
-              {artWork.dateStart}
-            </Table.TextCell>
-            <Table.TextCell flex={3} textProps={{ color: 'muted' }}>
-              {artWork.tags.join(', ')}
-            </Table.TextCell>
-          </Table.Row>
+          <RowLink key={artWork.id} to={`/artwork/${artWork.id}`}>
+            <Table.Row isSelectable>
+              <Table.TextCell flex={5}>{artWork.title}</Table.TextCell>
+              <Table.TextCell flex={1} isNumber>
+                {artWork.dateStart}
+              </Table.TextCell>
+              <Table.TextCell flex={3} textProps={{ color: 'muted' }}>
+                {artWork.tags.join(', ')}
+              </Table.TextCell>
+            </Table.Row>
+          </RowLink>
         ))}
       </Table.Body>
     </Table>

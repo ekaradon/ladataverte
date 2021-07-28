@@ -16,6 +16,7 @@ type ArtWorkDTO = {
   date_start: number
   date_end: number
   term_titles: string[] | null
+  image_id: string
 }
 
 function ArtWorkEntity({
@@ -24,7 +25,8 @@ function ArtWorkEntity({
   date_start: dateStart,
   date_end: dateEnd,
   term_titles,
-  thumbnail: {lqip: img, alt_text: alt, ...thumbnail}
+  image_id,
+  thumbnail: {alt_text: alt, ...thumbnail}
 }: ArtWorkDTO) {
     return Object.freeze({
         id,
@@ -33,7 +35,7 @@ function ArtWorkEntity({
         dateEnd,
         tags: term_titles || [],
         thumbnail: {
-            img,
+            img: `https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg`,
             alt,
             ...thumbnail
         }
