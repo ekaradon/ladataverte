@@ -1,3 +1,5 @@
+import { atom } from 'jotai'
+
 type ThumbnailDTO = {
   lqip: string
   width: number
@@ -12,7 +14,7 @@ type ArtWorkDTO = {
   is_boosted: boolean
   title: string
   alt_titles: null | string[]
-  thumbnail: ThumbnailDTO
+  thumbnail: ThumbnailDTO | null
   date_start: number
   date_end: number
   term_titles: string[] | null
@@ -26,23 +28,42 @@ function artWorkEntity({
   date_end: dateEnd,
   term_titles,
   image_id,
-  thumbnail: {alt_text: alt, ...thumbnail}
+  thumbnail
 }: ArtWorkDTO) {
-    return Object.freeze({
-        id,
-        title,
-        dateStart,
-        dateEnd,
-        tags: term_titles || [],
-        thumbnail: {
-            img: `https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg`,
-            alt,
-            ...thumbnail
-        }
+  const {
+    width,
+    height,
+    alt_text: alt
+  } = thumbnail || {
+    width: NaN,
+    height: NaN,
+    alt_text: 'No description available'
+  }
+
+  return Object.freeze({
+    id,
+    title,
+    dateStart,
+    dateEnd,
+    tags: term_titles || [],
+    img: {
+      src: `https://www.artic.edu/iiif/2/${image_id}/full/843,/0/default.jpg`,
+      width,
+      height,
+      alt
+    }
   })
 }
 
 type ArtWorkEntity = ReturnType<typeof artWorkEntity>
 
+const artWorkDTOList = atom<ArtWorkDTO[]>([])
+const artWorkEntityList = atom<ArtWorkEntity[], ArtWorkDTO[]>(
+  (get) => get(artWorkDTOList).map(artWorkEntity),
+  (_, set, list: ArtWorkDTO[]) => {
+    set(artWorkDTOList, list)
+  }
+)
+
 export type { ArtWorkDTO, ArtWorkEntity }
-export { artWorkEntity }
+export { artWorkEntity, artWorkEntityList }
