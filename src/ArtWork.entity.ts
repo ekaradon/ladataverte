@@ -19,7 +19,7 @@ type ArtWorkDTO = {
   image_id: string
 }
 
-function ArtWorkEntity({
+function artWorkEntity({
   id,
   title,
   date_start: dateStart,
@@ -42,5 +42,7 @@ function ArtWorkEntity({
   })
 }
 
-export type { ArtWorkDTO }
-export { ArtWorkEntity }
+type ArtWorkEntity = ReturnType<typeof artWorkEntity>
+
+export type { ArtWorkDTO, ArtWorkEntity }
+export { artWorkEntity }

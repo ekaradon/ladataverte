@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, Button, Pane } from 'evergreen-ui'
 import { Fragment } from 'react'
 import { Link, Redirect, useParams } from 'react-router-dom'
-import { ArtWorkEntity } from './ArtWork.entity'
+import { artWorkEntity } from './ArtWork.entity'
 import { Header } from './Header.component'
 import sample from './sample.json'
 
@@ -9,7 +9,7 @@ const { data } = sample
 
 function ArtWork() {
   const { artWorkId } = useParams<{ artWorkId: string }>()
-  const artWork = data.map(ArtWorkEntity).find(({ id }) => id === +artWorkId)
+  const artWork = data.map(artWorkEntity).find(({ id }) => id === +artWorkId)
 
   if (!artWork) {
     return <Redirect to='/' />
