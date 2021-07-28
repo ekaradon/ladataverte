@@ -5,10 +5,14 @@ import { ArtTable } from './ArtTable.component'
 import { Header } from './Header.component'
 
 function Home() {
+  function onReset() {
+    window.location.reload(true)
+  }
+
   return (
     <Fragment>
       <Header title='Art Institute of Chicago'>
-        <Button>Reset</Button>
+        <Button onClick={onReset}>Reset cache</Button>
       </Header>
       <ArtTable />
     </Fragment>
